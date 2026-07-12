@@ -1,0 +1,4 @@
+interface:
+  display_name: "CICIEC Stage 3 Iteration"
+  short_description: "Reuse CICIEC CI data and judge workflow"
+  default_prompt: "Use $ciciec-stage3-iteration to inspect the current project state and run the appropriate CICIEC Stage 3 iteration workflow."
