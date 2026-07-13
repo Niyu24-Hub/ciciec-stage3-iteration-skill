@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "generated_at": null,
+  "policy": {
+    "eligible": "Finished evaluator result with successful GitLab CI evidence",
+    "winner": "highest score wins; score ties prefer earlier submission"
+  },
+  "current_winner": null,
+  "leaderboard": [],
+  "winner_tree": [],
+  "ineligible_results": [],
+  "unscored_strategy_candidates": []
+}

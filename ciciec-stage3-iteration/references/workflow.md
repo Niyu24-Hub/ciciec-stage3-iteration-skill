@@ -2,6 +2,17 @@
 
 ## Scope and Configuration
 
+Initialize a new or incomplete workspace from the installed Skill directory:
+
+```sh
+export CICIEC_WORKSPACE=/path/to/ciciec_workspace
+bash <skill-directory>/scripts/bootstrap_workspace.sh "$CICIEC_WORKSPACE"
+```
+
+The bootstrap command installs the five bundled tools and creates non-secret
+project-memory and `ci_data` templates. It preserves existing files unless
+`--force` is explicitly passed.
+
 Set the workspace, submission repository, and submission ref before using live
 commands:
 
@@ -12,7 +23,17 @@ export CICIEC_SUBMISSION_REF=submit/codex
 cd "$CICIEC_WORKSPACE"
 ```
 
-The compatible project workspace is expected to provide these commands:
+Configure service endpoints and identifiers. The public Skill intentionally
+contains no private server address or project/lab ID:
+
+```sh
+export CICIEC_GITLAB_API_URL=https://gitlab.example.com/api/v4
+export CICIEC_GITLAB_PROJECT_ID=123
+export CICIEC_JUDGE_BASE_URL=https://judge.example.com
+export CICIEC_STAGE3_LAB_ID='optional-if-auto-discovery-works'
+```
+
+The bootstrap command installs these bundled commands into the workspace:
 
 - `tools/ciciec_iterate.sh`
 - `tools/ciciec_ci_push_collect.sh`

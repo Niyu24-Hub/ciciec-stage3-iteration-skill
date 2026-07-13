@@ -21,6 +21,20 @@ If the variable is unset or the path does not exist, ask the user for the
 workspace path. Allow the submission repository and working ref to be selected
 with `CICIEC_SUBMISSION_REPO` and `CICIEC_SUBMISSION_REF`.
 
+## Workspace Bootstrap
+
+If the workspace does not contain the required `tools/`, memory files, or
+`ci_data/` structure, install the bundled public toolchain before continuing:
+
+```sh
+bash <skill-directory>/scripts/bootstrap_workspace.sh "$CICIEC_WORKSPACE"
+```
+
+Preserve existing workspace files by default. Use `--force` only when the user
+explicitly wants the bundled templates or tools to replace existing files.
+Review `ciciec.env.example` and export the required service configuration in
+the current shell; never source placeholder credential values unchanged.
+
 ## First Load
 
 Inspect current state before acting:
@@ -45,6 +59,9 @@ full-chain commands.
   `tools/ciciec_iterate.sh`.
 - **Winner policy**: trust the generated winner tree for score status, and
   update curated ledgers only when a result changes design direction.
+- **Bundled setup**: use `scripts/bootstrap_workspace.sh`, bundled project
+  tools, and templates to initialize a compatible workspace without private
+  project files.
 
 ## Safety Rules
 
