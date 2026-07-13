@@ -9,9 +9,12 @@ export CICIEC_WORKSPACE=/path/to/ciciec_workspace
 bash <skill-directory>/scripts/bootstrap_workspace.sh "$CICIEC_WORKSPACE"
 ```
 
-The bootstrap command installs the five bundled tools and creates non-secret
+The bootstrap command installs the six bundled tools and creates non-secret
 project-memory and `ci_data` templates. It preserves existing files unless
 `--force` is explicitly passed.
+
+Use `ciciec.env.example` as the Bash configuration template and
+`ciciec.env.example.ps1` as the Windows PowerShell template.
 
 Set the workspace, submission repository, and submission ref before using live
 commands:
@@ -33,6 +36,22 @@ export CICIEC_JUDGE_BASE_URL=https://judge.example.com
 export CICIEC_STAGE3_LAB_ID='optional-if-auto-discovery-works'
 ```
 
+Windows PowerShell equivalent:
+
+```powershell
+$env:CICIEC_WORKSPACE = "C:\path\to\ciciec_workspace"
+$env:CICIEC_SUBMISSION_REPO = "C:\path\to\regional-submission"
+$env:CICIEC_SUBMISSION_REF = "submit/codex"
+$env:CICIEC_CI_REF = $env:CICIEC_SUBMISSION_REF
+$env:CICIEC_GITLAB_API_URL = "https://gitlab.example.com/api/v4"
+$env:CICIEC_GITLAB_PROJECT_ID = "123"
+$env:CICIEC_JUDGE_BASE_URL = "https://judge.example.com"
+$env:CICIEC_STAGE3_LAB_ID = "optional-if-auto-discovery-works"
+```
+
+Use WSL or Git Bash for the bundled Bash wrappers and bootstrap script. Run
+individual Python tools with `python` or `py -3` in a native PowerShell session.
+
 The bootstrap command installs these bundled commands into the workspace:
 
 - `tools/ciciec_iterate.sh`
@@ -40,6 +59,7 @@ The bootstrap command installs these bundled commands into the workspace:
 - `tools/collect_ciciec_ci.py`
 - `tools/ciciec_judge.py`
 - `tools/update_ciciec_eval_winners.py`
+- `tools/check_stage3_trace.py`
 
 ## Secret Handling
 
@@ -49,6 +69,14 @@ Set credentials only in the shell:
 export GITLAB_TOKEN='...'
 export CICIEC_JUDGE_USER='...'
 export CICIEC_JUDGE_PASSWORD='...'
+```
+
+PowerShell equivalent:
+
+```powershell
+$env:GITLAB_TOKEN = "replace-in-current-shell"
+$env:CICIEC_JUDGE_USER = "replace-in-current-shell"
+$env:CICIEC_JUDGE_PASSWORD = "replace-in-current-shell"
 ```
 
 If supported by the project toolchain, update the judge-side GitLab token with:
@@ -143,6 +171,27 @@ python3 tools/ciciec_judge.py submit --job-id <job_id> --wait
 This performs a live online-judge operation unless the tool finds an existing
 submission for the job. It should update evaluator JSONL and the winner tree by
 default.
+
+## CBOR Trace Analysis
+
+Inspect a trace file or automatically select the newest `.cbor` file in a
+directory:
+
+```sh
+python3 tools/check_stage3_trace.py /path/to/trace-or-directory
+```
+
+Prove that a trace contains a specific submitted program binary:
+
+```sh
+python3 tools/check_stage3_trace.py \
+  --expected-bin /path/to/user-sample.bin \
+  /path/to/trace-or-directory
+```
+
+The command is local and read-only. It uses only the Python standard library
+and reports UART markers, timing intervals, large byte strings, SHA-256 binary
+fingerprints, and a trace evidence verdict.
 
 ## Full Chain
 

@@ -63,6 +63,8 @@ install_file "$template_source/CICIEC_STAGE3_CI_RESULTS.md" \
   "$workspace/CICIEC_STAGE3_CI_RESULTS.md"
 install_file "$template_source/ciciec.env.example" \
   "$workspace/ciciec.env.example"
+install_file "$template_source/ciciec.env.example.ps1" \
+  "$workspace/ciciec.env.example.ps1"
 install_file "$template_source/ci_data/ciciec_stage3_score_winner_tree.json" \
   "$workspace/ci_data/ciciec_stage3_score_winner_tree.json"
 install_file "$template_source/ci_data/ciciec_stage3_score_winner_tree.md" \
@@ -85,5 +87,6 @@ done
 
 echo
 echo "Workspace initialized: $workspace"
-echo "Next: review $workspace/ciciec.env.example and export the required values."
+echo "Next: review ciciec.env.example (Bash) or ciciec.env.example.ps1 (PowerShell)."
+echo "Export the required values in the current shell before using live services."
 echo "Then run: $workspace/tools/ciciec_iterate.sh status"

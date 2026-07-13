@@ -1,6 +1,6 @@
 ---
 name: ciciec-stage3-iteration
-description: CICIEC Stage 3 project iteration workflow for Codex CLI sessions. Use when working on a CICIEC Stage 3 SoC submission, especially for project-memory reuse, CI evidence collection, GitLab pipeline or artifact inspection, online-judge submission, score recording, winner-tree maintenance, or handing iterative development to another session.
+description: CICIEC Stage 3 project iteration workflow for Codex CLI sessions. Use when working on a CICIEC Stage 3 SoC submission, especially for 数据沉淀 (data sedimentation), project-memory reuse, CI evidence collection, GitLab pipeline or artifact inspection, online-judge submission, frontend score recording, CBOR trace analysis, winner-tree maintenance, or handing iterative development to another session.
 ---
 
 # CICIEC Stage 3 Iteration
@@ -32,8 +32,9 @@ bash <skill-directory>/scripts/bootstrap_workspace.sh "$CICIEC_WORKSPACE"
 
 Preserve existing workspace files by default. Use `--force` only when the user
 explicitly wants the bundled templates or tools to replace existing files.
-Review `ciciec.env.example` and export the required service configuration in
-the current shell; never source placeholder credential values unchanged.
+Review `ciciec.env.example` on Bash or `ciciec.env.example.ps1` on PowerShell
+and export the required service configuration in the current shell; never use
+placeholder credential values unchanged.
 
 ## First Load
 
@@ -59,6 +60,8 @@ full-chain commands.
   `tools/ciciec_iterate.sh`.
 - **Winner policy**: trust the generated winner tree for score status, and
   update curated ledgers only when a result changes design direction.
+- **Trace diagnostics**: use `tools/check_stage3_trace.py` to inspect CBOR
+  traces, UART markers, program-binary fingerprints, and timing evidence.
 - **Bundled setup**: use `scripts/bootstrap_workspace.sh`, bundled project
   tools, and templates to initialize a compatible workspace without private
   project files.
